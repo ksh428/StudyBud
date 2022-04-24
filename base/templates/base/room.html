@@ -70,7 +70,7 @@
                 <p>Hosted By</p>
                 <a href="{% url 'user-profile' room.host.pk %}" class="room__author">
                   <div class="avatar avatar--small">
-                    <img src="{{request.user.avatar.url}}" />
+                    <img src="{{room.host.avatar.url}}" />
                   </div>
                   <span>@{{room.host.username}}</span>
                 </a>
@@ -117,12 +117,19 @@
               </div>
             </div>
           </div>
+          {% if user.is_authenticated %}
           <div class="room__message">
             <form action="" method='POST'>
             {% csrf_token %}
             <input name="body" placeholder="Write your message here..." />
             </form>
           </div>
+          {% else %}
+          <div class="room__message">
+          <span> login to join the discussion!!</span>
+          </div>
+
+          {% endif %}
         </div>
         <!-- Room End -->
 
